@@ -6,53 +6,15 @@ let modal = document.querySelector('.modal')
 let search = document.querySelector('.search')
 let carsContainer = document.querySelector('.cars-container')
 let hide = document.querySelector('.hide')
+let background = document.querySelector('#background')
 
-//OBJECTS CARS LIST
-const objects = [
-    {
-        "id": 1,
-        "name": "Ford Fusion 2014",
-        "description": "Esse carro de 2014 levou muita belezinha para o prezunic comprar o arroz quando era barato",
-        "file": "fusion.jpg",
-        "price": 45000.00
-    },
-    {
-        "id": 2,
-        "name": "Chevrolet Tracker 2021",
-        "description": "Apesar de ele ter tracker no nome, pode ficar tranquilo que não estamos te trackeando rsrs",
-        "file": "GM-tracker_2021.jpg",
-        "price": 90000.00
-    },
-    {
-        "id": 3,
-        "name": "Hyundai HB20 2020",
-        "description": "Você quer 4 rodas? Ele tem! Você quer 4 portas? Talvez ele tenha! Você quer economia? Não tem :/",
-        "file": "hb20.jpg",
-        "price": 60000.00
-    },
-    {
-        "id": 4,
-        "name": "Jeep Renegade MOAB 2018",
-        "description": "Vai ali na rua e espera 3 minutos. Só com isso, te convenci a comprar né? TODO MUNDO USA, simplesmente a havaiana automobilística.",
-        "file": "renegade.jpg",
-        "price": 145000.00
-    },
-    {
-        "id": 5,
-        "name": "Hyundai Tucson 2022",
-        "description": "Bem mais bonita que as anteriores, carinha de kicks",
-        "file": "tucson.jpg",
-        "price": 230000.00
-    },
-    {
-        "id": 6,
-        "name": "Fusca Gamer",
-        "description": "um fusquinha gamer raro do balacobaco, não pode ser comprado pois ninguém é digno de te-lo mas você pode aprecia-lo por um tempo :)",
-        "file": "fusquinha-gamer.jpg",
-        "price": "muito caro"
-    }
-]
-
+//OBJECTS CARS LIST 
+fetch('database.json')
+    .then(response => response.json())
+    .then(json => {
+        objects = json
+        listCars(objects)
+    })
 //FILTERING CARS
 
 search.onkeyup = function carsFilter() {
@@ -67,6 +29,8 @@ search.onkeyup = function carsFilter() {
     listCars(objectsFiltered)
 
 }
+
+carsContainer.innerHTML = 'Buscando carros...'
 
 //LISTING CARS
 
@@ -107,8 +71,10 @@ function listCars(cars = objects) {
     cards.forEach(card => {
         card.onclick = () => {
             let carId = card.getAttribute('data-car')
-            hide.style.display = 'flex'
-            modal.style.display = 'flex'
+            
+            background.classList.add('open')
+            modal.classList.add('open')
+
             body.style.overflow = 'hidden'
             window.scroll({
                 top: 0,
@@ -154,30 +120,28 @@ function printModal(carId) {
 
     //CLOSE WITH X BUTTON
     buttonX.addEventListener('click', function () {
-        hide.style.display = 'none'
-        modal.style.display = 'none'
-        body.style.overflow = 'auto'
+        closeModal()
     })
 
     //CLOSE WHEN CLICK ON BACKGROUND AROUND THE MODAL
     background.addEventListener('click', function () {
-        hide.style.display = 'none'
-        modal.style.display = 'none'
-        body.style.overflow = 'auto'
+        closeModal()
     })
 
     //CLOSE WHEN PRESS ESC
     document.body.addEventListener('keydown', function(event){
         let keyCode = event.keyCode
         if(keyCode == 27){
-            hide.style.display = 'none'
-            modal.style.display = 'none'
-            body.style.overflow = 'auto'  
+            closeModal()
         }
     });
 }
 
-
+function closeModal() {
+    modal.classList.remove('open')
+    background.classList.remove('open')
+    body.style.overflow = 'auto'
+}
 
 
 
