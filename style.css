@@ -81,6 +81,7 @@ header {
 
 .card-container {
     padding: 15px;
+    margin-bottom: 20px;
     background-color: lightgray;
     display: flex;
     flex-wrap: wrap;

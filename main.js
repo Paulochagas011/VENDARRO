@@ -43,6 +43,13 @@ const objects = [
         "description": "Bem mais bonita que as anteriores, carinha de kicks",
         "file": "tucson.jpg",
         "price": 230000.00
+    },
+    {
+        "id": 6,
+        "name": "Fusca Gamer",
+        "description": "um fusquinha gamer raro do balacobaco, não pode ser comprado pois ninguém é digno de te-lo mas você pode aprecia-lo por um tempo :)",
+        "file": "fusquinha-gamer.jpg",
+        "price": "muito caro"
     }
 ]
 
