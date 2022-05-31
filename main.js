@@ -70,7 +70,7 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
         let objectsFiltered = []
         
         objectsFiltered = objects.filter(obj => {
-            return obj.name.toLowerCase().includes(searchValue)
+            return obj.modelo.toLowerCase().includes(searchValue)
         })
         
         listCars(objectsFiltered)
@@ -81,7 +81,7 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
     
     //LISTING CARS
     
-    function listCars(cars = objects) {
+    function listCars(cars) {
     
         let foundCars = document.querySelector('.found-cars p')
         foundCars.textContent = `Carros encontrados: ${cars.length}`
@@ -134,8 +134,6 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
         }
     });
 }
-
-listCars();
 
 
 // MODAL      

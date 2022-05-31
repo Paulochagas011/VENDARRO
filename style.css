@@ -321,7 +321,21 @@ label{
     display: none;
     justify-content: center;
 }
+.form-div-edit {
+    position: absolute;
+    z-index: 3;
+    top: 10%;
+    display: none;
+    justify-content: center;
+}
 form {
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #9A9A9A;
+    border-radius: 5px;
+    width: 100%;
+}
+.form-edit {
     font-size: 25px;
     font-family: 'Roboto', sans-serif;
     background-color: #9A9A9A;

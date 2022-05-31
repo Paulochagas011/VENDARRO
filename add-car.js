@@ -40,18 +40,47 @@ function listCars(cars) {
         <td  class="td-descricao">${descricao}</td>
         <td>
             <div class="td-action">
-                <img class="td-edit" src="images/edit.png">
+                <img class="td-edit" data-edit=${id} src="images/edit.png">
                 <img class="td-delete" src="images/delete.png">
             </div>
         </td>
     </tr>`
     }
+
+    let buttonEdit = document.querySelectorAll('.td-edit')
+    buttonEdit.forEach(button => {
+
+        button.onclick = function () {
+            let carId = this.getAttribute('data-edit')
+            editModal(carId)
+        }
+
+    })
+}
+
+function editModal(id) {
+    let carInfo = objects.find(car => car.id == id)
+
+    let carId = carInfo.id
+    let carModel = carInfo.modelo
+    let carValue = carInfo.valor
+    let carDescription = carInfo.descricao
+    let carFoto = carInfo.foto
+    
+    let inputModelo = document.querySelector('#modelo-carro').value = carModel
+    let inputValue = document.querySelector('#valor-carro').value = carValue
+    let inputDescription = document.querySelector('#description-carro').value = carDescription
+
+    // secondModal()
+    openModal()
+    
 }
 
 //OPEN MODAL
 let formDiv = document.querySelector('.form-div')
 
-addCarBtn.addEventListener('click', function () {
+function openModal() {
+
     background.style.display = 'flex'
     formDiv.style.display = 'flex'
     body.style.overflow = 'hidden'
@@ -60,7 +89,26 @@ addCarBtn.addEventListener('click', function () {
         left: 0,
         behavior: 'smooth'
     })
+}
+
+addCarBtn.addEventListener('click', function () {
+    openModal()
 })
+
+//OPEN EDIT MODAL
+let formDivEdit = document.querySelector('.form-div-edit')
+
+
+function secondModal (){
+    background.style.display = 'flex'
+    formDivEdit.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
+}
 
 //CLOSE MODAL
 let background = document.querySelector('.background')
@@ -73,24 +121,24 @@ function closeModal() {
 }
 closeModal()
 //CLOSE MODAL WHEN CLICK ON BACKGROUND
-background.addEventListener('click', function(){
+background.addEventListener('click', function () {
     closeModal()
 })
 //CLOSE MODAL WHEN CLICK ON X BUTTON
-xBtn.addEventListener('click', function(){
+xBtn.addEventListener('click', function () {
     closeModal()
 })
 //CLOSE WHEN PRESS ESC
-document.body.addEventListener('keydown', function(event){
+document.body.addEventListener('keydown', function (event) {
     let keyCode = event.keyCode
-    if(keyCode == 27){
+    if (keyCode == 27) {
         closeModal()
     }
 });
 
 let form = document.getElementById('form')
 
-form.addEventListener('submit', function (event){
+form.addEventListener('submit', function (event) {
     event.preventDefault()
 
     const formData = new FormData(form)
@@ -100,21 +148,20 @@ form.addEventListener('submit', function (event){
         body: formData,
         strictErrors: true
     })
-    .then(response => {
-        if(!response.ok) {
-            alert('Erro ao cadastrar: status '+response.status)
-        } else {
-            return response
-        }
-    })
-    .then(data => {
-        getCars()
-        if (data.length != data){
-            alert('Carro cadastrado')
-        }
-    })
-    .catch(error => error)
-    
+        .then(response => {
+            if (!response.ok) {
+                alert('Erro ao cadastrar: status ' + response.status)
+            } else {
+                return response
+            }
+        })
+        .then(data => {
+            getCars()
+            if (data.length != data) {
+                alert('Carro cadastrado')
+            }
+        })
+        .catch(error => error)
     closeModal()
 })
 
