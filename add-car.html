@@ -24,60 +24,63 @@
     <div class="container add-car-btn">
         <img class="add-car-btn-img" src="images/car-plus.png" alt="add new car image">
     </div>
-
-    <table class="container">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Descrição</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            <tr>
-                <td class="td-id">123</td>
-                <td class="td-modelo">golzin</td>
-                <td class="td-valor">100.000</td>
-                <td class="td-descricao">golzin zero bala</td>
-                <td>
-                    <div class="td-action">
-                        <img class="td-edit" src="images/edit.png">
-                        <img class="td-delete" src="images/delete.png">
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Descrição</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr>
+                    <td class="td-id">123</td>
+                    <td class="td-modelo">golzin</td>
+                    <td class="td-valor">100.000</td>
+                    <td class="td-descricao">golzin zero bala</td>
+                    <td>
+                        <div class="td-action">
+                            <img class="td-edit" src="images/edit.png">
+                            <img class="td-delete" src="images/delete.png">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="background"></div>
-    <div class="form-div">
-        <form id="form" class="container" action="https://imdev.azurewebsites.net/vendarro/get-carros.php" method="POST">
-            <div class="">
-                <label for="modelo-carro">modelo:</label>
-                <input id="modelo-carro" name="modelo-carro" type="text" placeholder="informe o modelo do carro" required>
-            </div>
-            <div class="">
-                <label for="valor-carro">valor:</label>
-                <input id="valor-carro" name="valor-carro" type="text" placeholder="informe o valor do carro" required>
-            </div>
-            <div class="">
-                <label for="description-carro">descrição:</label>
-                <input id="description-carro" name="description-carro" type="text" placeholder="informe a descricao do carro" required>
-            </div>
-            <div class="">
-                <label for="file-carro">file:</label>
-                <!-- <input id="file-carro" name="file-carro" type="text" placeholder="informe o file do carro" required> -->
-                <input id="file-carro" name='file-carro' type="file" >
-            </div>
-
-            <button id="adicionar-carro" class="adicionar-carro" type="submit">Adicionar</button>
-        </form>
-
-        <button class="x">X</button>
-
+    <div class="center">
+        <div class="form-div">
+            <form id="form" class="container" action="https://imdev.azurewebsites.net/vendarro/get-carros.php" method="POST">
+                <div class="modelo-carro">
+                    <label for="modelo-carro">modelo:</label>
+                    <input id="modelo-carro" name="modelo-carro" type="text" placeholder="informe o modelo do carro">
+                </div>
+                <div class="valor-carro">
+                    <label for="valor-carro">valor:</label>
+                    <input id="valor-carro" name="valor-carro" type="text" placeholder="informe o valor do carro">
+                </div>
+                <div class="description-carro">
+                    <label for="description-carro">descrição:</label>
+                    <input id="description-carro" name="description-carro" type="text" placeholder="informe a descricao do carro">
+                </div>
+                <div class="file-carro">
+                    <label for="file-carro">file:</label>
+                    <input id="file-carro" name='file-carro' type="file" >
+                </div>
+    
+                <button id="adicionar-carro" class="adicionar-carro" type="submit">Adicionar</button>
+            </form>
+    
+            <button class="x">X</button>
+    
+        </div>
     </div>
+    
 
 
     <script src="add-car.js"></script>

@@ -269,6 +269,7 @@ table{
     margin: 20px 0 20px 0;
     border-collapse: collapse;
 }
+
 td, th {
 	padding: 12px;
 	margin: 0;
@@ -282,6 +283,9 @@ th{
 }
 td {
     background-color: #0001;
+}
+tr:hover {
+    background-color: #9A9A9A;
 }
 label{
 	color: #555;
@@ -303,25 +307,26 @@ label{
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1;
 
     display: none;
+}
+.center {
+    display: flex;
+    justify-content: center;
 }
 .form-div {
     position: absolute;
     z-index: 3;
-    width: 100%;
-    display: flex;
-    align-content: center;
-    top: 80px;
-
+    top: 10%;
     display: none;
+    justify-content: center;
 }
 form {
     font-size: 25px;
     font-family: 'Roboto', sans-serif;
     background-color: #9A9A9A;
     border-radius: 5px;
+    width: 100%;
 }
 label {
     color: #FFFFFF;
@@ -350,7 +355,7 @@ form button {
 .x {
     position: absolute;
     top: -15px;
-    right: 340px;
+    right: -15px;
     width: 35px;
     height: 35px;
     font-style: normal;

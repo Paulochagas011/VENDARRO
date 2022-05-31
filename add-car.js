@@ -1,4 +1,6 @@
 
+// getin elements with querySelector
+let body = document.querySelector('body')
 let tableBody = document.querySelector('.table-body')
 let tdId = document.querySelector('.td-id')
 let tdModelo = document.querySelector('.td-modelo')
@@ -6,14 +8,17 @@ let tdValor = document.querySelector('.td-valor')
 let tdDescricao = document.querySelector('.td-descricao')
 let addCarBtn = document.querySelector('.add-car-btn-img')
 
+// geting cars from vendarro api
+function getCars() {
+    fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
+        .then(response => response.json())
+        .then(json => {
+            objects = json
+            listCars(objects)
+        })
+}
 
-
-fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
-    .then(response => response.json())
-    .then(json => {
-        objects = json
-        listCars(objects)
-    })
+getCars()
 
 function listCars(cars) {
 
@@ -43,28 +48,45 @@ function listCars(cars) {
     }
 }
 
+//OPEN MODAL
+let formDiv = document.querySelector('.form-div')
+
+addCarBtn.addEventListener('click', function () {
+    background.style.display = 'flex'
+    formDiv.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
+})
+
+//CLOSE MODAL
+let background = document.querySelector('.background')
+let xBtn = document.querySelector('.x')
+
 function closeModal() {
-    let background = document.querySelector('.background')
-    let formDiv = document.querySelector('.form-div')
-    let xBtn = document.querySelector('.x')
-
-    addCarBtn.addEventListener('click', function () {
-        background.style.display = 'flex'
-        formDiv.style.display = 'flex'
-    })
-
-    background.addEventListener('click', function () {
-        background.style.display = 'none'
-        formDiv.style.display = 'none'
-    })
-
-    xBtn.addEventListener('click', function () {
-        background.style.display = 'none'
-        formDiv.style.display = 'none'
-    })
-
+    background.style.display = 'none'
+    formDiv.style.display = 'none'
+    body.style.overflow = 'auto'
 }
 closeModal()
+//CLOSE MODAL WHEN CLICK ON BACKGROUND
+background.addEventListener('click', function(){
+    closeModal()
+})
+//CLOSE MODAL WHEN CLICK ON X BUTTON
+xBtn.addEventListener('click', function(){
+    closeModal()
+})
+//CLOSE WHEN PRESS ESC
+document.body.addEventListener('keydown', function(event){
+    let keyCode = event.keyCode
+    if(keyCode == 27){
+        closeModal()
+    }
+});
 
 let form = document.getElementById('form')
 
@@ -75,10 +97,25 @@ form.addEventListener('submit', function (event){
 
     fetch('https://imdev.azurewebsites.net/vendarro/create-carro.php', {
         method: 'post',
-        body: formData
+        body: formData,
+        strictErrors: true
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
-
+    .then(response => {
+        if(!response.ok) {
+            alert('Erro ao cadastrar: status '+response.status)
+        } else {
+            return response
+        }
+    })
+    .then(data => {
+        getCars()
+        if (data.length != data){
+            alert('Carro cadastrado')
+        }
+    })
+    .catch(error => error)
+    
+    closeModal()
 })
+
+
