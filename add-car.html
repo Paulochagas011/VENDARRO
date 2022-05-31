@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new car</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="container-header">
+        <div class="container container-header">
+            <a href="http://127.0.0.1:5500/index.html"><img src="images/Logo.png" alt="logo-insights-machine"></a>
+            <a href="http://127.0.0.1:5500/index.html">
+                <p>Vendarro LTDA</p>
+            </a>
+        </div>
+    </header>
+
+    <div class="container add-car-btn">
+        <img class="add-car-btn-img" src="images/car-plus.png" alt="add new car image">
+    </div>
+
+    <table class="container">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Descrição</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            <tr>
+                <td class="td-id">123</td>
+                <td class="td-modelo">golzin</td>
+                <td class="td-valor">100.000</td>
+                <td class="td-descricao">golzin zero bala</td>
+                <td>
+                    <div class="td-action">
+                        <img class="td-edit" src="images/edit.png">
+                        <img class="td-delete" src="images/delete.png">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="background"></div>
+    <div class="form-div">
+        <form id="form" class="container" action="https://imdev.azurewebsites.net/vendarro/get-carros.php" method="POST">
+            <div class="">
+                <label for="modelo-carro">modelo:</label>
+                <input id="modelo-carro" name="modelo-carro" type="text" placeholder="informe o modelo do carro" required>
+            </div>
+            <div class="">
+                <label for="valor-carro">valor:</label>
+                <input id="valor-carro" name="valor-carro" type="text" placeholder="informe o valor do carro" required>
+            </div>
+            <div class="">
+                <label for="description-carro">descrição:</label>
+                <input id="description-carro" name="description-carro" type="text" placeholder="informe a descricao do carro" required>
+            </div>
+            <div class="">
+                <label for="file-carro">file:</label>
+                <!-- <input id="file-carro" name="file-carro" type="text" placeholder="informe o file do carro" required> -->
+                <input id="file-carro" name='file-carro' type="file" >
+            </div>
+
+            <button id="adicionar-carro" class="adicionar-carro" type="submit">Adicionar</button>
+        </form>
+
+        <button class="x">X</button>
+
+    </div>
+
+
+    <script src="add-car.js"></script>
+</body>
+
+</html>
