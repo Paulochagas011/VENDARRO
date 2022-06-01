@@ -41,7 +41,7 @@ function listCars(cars) {
         <td>
             <div class="td-action">
                 <img class="td-edit" data-edit=${id} src="images/edit.png">
-                <img class="td-delete" src="images/delete.png">
+                <img class="td-delete" data-delete=${id} src="images/delete.png">
             </div>
         </td>
     </tr>`
@@ -55,6 +55,16 @@ function listCars(cars) {
             editModal(carId)
         }
 
+    })
+
+    let buttonDelete = document.querySelectorAll('.td-delete')
+    buttonDelete.forEach(button => {
+
+        button.onclick = function () {
+            carId = this.getAttribute('data-delete')
+            deleteItem(carId)
+            OpenDeleteModal()
+        }
     })
 }
 
@@ -103,10 +113,33 @@ formEdit.addEventListener('submit', function (event) {
         })
         .catch(error => error)
     closeModal()
-
-    let img = document.getElementById('file-carro-edit')
-    console.log(img.files)
 })
+
+function deleteItem(id){
+    let carToBeDeleted = objects.find(car => car.id == id)
+    
+    const formData = new FormData()
+    formData.append('id', id)
+
+    fetch('https://imdev.azurewebsites.net/vendarro/delete-carro.php', {
+        method: 'post',
+        body: formData,
+        strictErrors: true
+    })
+        .then(response => {
+            if (!response.ok) {
+                alert('Erro ao Deletar: status ' + response.status)
+            } else {
+                return response
+            }
+        })
+        .then(data => {
+            getCars()
+            if(response.ok){
+                alert('Carro deletado')
+            } 
+        })
+}
 
 //OPEN MODAL
 let formDiv = document.querySelector('.form-div')
@@ -142,6 +175,19 @@ function secondModal (){
     })
 }
 
+//OPEN DELETE MODAL
+let deleteModal = document.querySelector('.delete-modal')
+
+function OpenDeleteModal(){
+    background.style.display = 'flex'
+    deleteModal.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
+}
 //CLOSE MODAL
 let background = document.querySelector('.background')
 let xBtn = document.querySelectorAll('.x')
@@ -201,5 +247,8 @@ form.addEventListener('submit', function (event) {
         .catch(error => error)
     closeModal()
 })
+
+//DELETE CARS
+
 
 
