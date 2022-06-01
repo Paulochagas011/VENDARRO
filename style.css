@@ -366,7 +366,7 @@ form button {
 
     cursor: pointer;
 }
-.x {
+.x, .x-edit {
     position: absolute;
     top: -15px;
     right: -15px;

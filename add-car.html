@@ -73,24 +73,27 @@
     <div class="center">
         <div class="form-div-edit">
             <form id="form-edit" class="container" action="https://imdev.azurewebsites.net/vendarro/get-carros.php" method="POST">
+                
+                <input type="hidden" name="id" id="hidden-id">
+
                 <div class="modelo-carro">
-                    <label for="modelo-carro">modelo:</label>
-                    <input id="modelo-carro" class="input" name="modelo-carro" type="text" placeholder="informe o modelo do carro">
+                    <label for="modelo-carro-edit">modelo:</label>
+                    <input id="modelo-carro-edit" class="input" name="modelo-carro" type="text" placeholder="informe o modelo do carro-edit">
                 </div>
-                <div class="valor-carro">
-                    <label for="valor-carro">valor:</label>
-                    <input id="valor-carro" class="input" name="valor-carro" type="text" placeholder="informe o valor do carro">
+                <div class="valor-carro-edit">
+                    <label for="valor-carro-edit">valor:</label>
+                    <input id="valor-carro-edit" class="input" name="valor-carro" type="text" placeholder="informe o valor do carro-edit">
                 </div>
-                <div class="description-carro">
-                    <label for="description-carro">descrição:</label>
-                    <input id="description-carro" class="input" name="description-carro" type="text" placeholder="informe a descricao do carro">
+                <div class="description-carro-edit">
+                    <label for="description-carro-edit">descrição:</label>
+                    <input id="description-carro-edit" class="input" name="description-carro" type="text" placeholder="informe a descricao do carro-edit">
                 </div>
-                <div class="file-carro">
-                    <label for="file-carro">file:</label>
-                    <input id="file-carro" class="input" name='file-carro' type="file" >
+                 <div class="file-carro">
+                    <label for="file-carro-edit">Imagem:</label>
+                    <input id="file-carro-edit" class="input" name="file-carro" type="file" >
                 </div>
     
-                <button id="adicionar-carro" class="adicionar-carro" type="submit">Salvar</button>
+                <button id="salvar-carro" class="salvar-carro" type="submit">Salvar</button>
             </form>
     
             <button class="x">X</button>

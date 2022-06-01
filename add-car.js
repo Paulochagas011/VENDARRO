@@ -8,7 +8,7 @@ let tdValor = document.querySelector('.td-valor')
 let tdDescricao = document.querySelector('.td-descricao')
 let addCarBtn = document.querySelector('.add-car-btn-img')
 
-// geting cars from vendarro api
+// geting cars from api
 function getCars() {
     fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
         .then(response => response.json())
@@ -59,6 +59,8 @@ function listCars(cars) {
 }
 
 function editModal(id) {
+    secondModal()
+
     let carInfo = objects.find(car => car.id == id)
 
     let carId = carInfo.id
@@ -67,14 +69,44 @@ function editModal(id) {
     let carDescription = carInfo.descricao
     let carFoto = carInfo.foto
     
-    let inputModelo = document.querySelector('#modelo-carro').value = carModel
-    let inputValue = document.querySelector('#valor-carro').value = carValue
-    let inputDescription = document.querySelector('#description-carro').value = carDescription
-
-    // secondModal()
-    openModal()
+    let inputModelo = document.querySelector('#modelo-carro-edit').value = carModel
+    let inputValue = document.querySelector('#valor-carro-edit').value = carValue
+    let inputDescription = document.querySelector('#description-carro-edit').value = carDescription
     
+    document.querySelector('#hidden-id').value = id
 }
+
+let formEdit = document.getElementById('form-edit')
+
+formEdit.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const formData = new FormData(formEdit)
+
+    fetch('https://imdev.azurewebsites.net/vendarro/update-carro.php', {
+        method: 'post',
+        body: formData,
+        strictErrors: true
+    })
+        .then(response => {
+            if (!response.ok) {
+                alert('Erro ao Atualizar: status ' + response.status)
+            } else {
+                return response
+            }
+        })
+        .then(data => {
+            getCars()
+            if (data.length != data) {
+                alert('Carro Atualizado')
+            }
+        })
+        .catch(error => error)
+    closeModal()
+
+    let img = document.getElementById('file-carro-edit')
+    console.log(img.files)
+})
 
 //OPEN MODAL
 let formDiv = document.querySelector('.form-div')
@@ -112,11 +144,12 @@ function secondModal (){
 
 //CLOSE MODAL
 let background = document.querySelector('.background')
-let xBtn = document.querySelector('.x')
+let xBtn = document.querySelectorAll('.x')
 
 function closeModal() {
     background.style.display = 'none'
     formDiv.style.display = 'none'
+    formDivEdit.style.display = 'none'
     body.style.overflow = 'auto'
 }
 closeModal()
@@ -125,8 +158,12 @@ background.addEventListener('click', function () {
     closeModal()
 })
 //CLOSE MODAL WHEN CLICK ON X BUTTON
-xBtn.addEventListener('click', function () {
-    closeModal()
+xBtn.forEach(button => {
+
+    button.onclick = function () {
+        closeModal()
+    }
+
 })
 //CLOSE WHEN PRESS ESC
 document.body.addEventListener('keydown', function (event) {
