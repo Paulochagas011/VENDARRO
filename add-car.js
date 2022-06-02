@@ -99,12 +99,25 @@ form.addEventListener('submit', function (event) {
     closeModal()
 })
 
-//  BUTTON "SIM" FROM DELETE MODAL
-let deleteSimbtn = document.querySelector('.delete-sim-btn')
-deleteSimbtn.onclick = function(){
-    deleteItem(carId)
-    closeModal()
+//FUNCTION TO OPEN ADD CAR MODAL
+function openModal() {
+
+    background.style.display = 'flex'
+    formDiv.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
 }
+
+//OPEN ADD CAR MODAL
+let formDiv = document.querySelector('.form-div')
+
+addCarBtn.addEventListener('click', function () {
+    openModal()
+})
 
 // THE EDIT FORM
 let formEdit = document.getElementById('form-edit')
@@ -136,6 +149,19 @@ formEdit.addEventListener('submit', function (event) {
     closeModal()
 })
 
+//OPEN EDIT MODAL
+let formDivEdit = document.querySelector('.form-div-edit')
+
+function openEditModal (){
+    background.style.display = 'flex'
+    formDivEdit.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
+}
 
 // EDIT MODAL
 function editModal(id) {
@@ -155,6 +181,20 @@ function editModal(id) {
     let inputDescription = document.querySelector('#description-carro-edit').value = carDescription
     
     document.querySelector('#hidden-id').value = id
+}
+
+//OPEN DELETE MODAL
+let deleteModal = document.querySelector('.delete-modal')
+
+function OpenDeleteModal(){
+    background.style.display = 'flex'
+    deleteModal.style.display = 'flex'
+    body.style.overflow = 'hidden'
+    window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
 }
 
 // FUNCTION TO CALL ON DELETE BUTTON FROM TABLE
@@ -182,56 +222,20 @@ function deleteItem(id){
         })
 }
 
-//OPEN ADD CAR MODAL
-let formDiv = document.querySelector('.form-div')
+//  BUTTON "SIM" FROM DELETE MODAL
+let deleteSimbtn = document.querySelector('.delete-sim-btn')
+deleteSimbtn.onclick = function(){
+    deleteItem(carId)
+    closeModal()
+}
 
-addCarBtn.addEventListener('click', function () {
-    openModal()
+//BUTTON "NÃO" FROM DELETE MODAL
+let deleteNaoBtn = document.querySelector('.delete-nao-btn')
+deleteNaoBtn.addEventListener('click', function () {
+    closeModal()
 })
 
-//OPEN MODAL
-function openModal() {
-
-    background.style.display = 'flex'
-    formDiv.style.display = 'flex'
-    body.style.overflow = 'hidden'
-    window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    })
-}
-
-
-//OPEN EDIT MODAL
-let formDivEdit = document.querySelector('.form-div-edit')
-
-function openEditModal (){
-    background.style.display = 'flex'
-    formDivEdit.style.display = 'flex'
-    body.style.overflow = 'hidden'
-    window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    })
-}
-
-//OPEN DELETE MODAL
-let deleteModal = document.querySelector('.delete-modal')
-
-function OpenDeleteModal(){
-    background.style.display = 'flex'
-    deleteModal.style.display = 'flex'
-    body.style.overflow = 'hidden'
-    window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-    })
-}
-
-//CLOSE MODAL
+//CLOSE MODALS
 let background = document.querySelector('.background')
 let xBtn = document.querySelectorAll('.x')
 
@@ -244,31 +248,24 @@ function closeModal() {
 }
 closeModal()
 
-//CLOSE MODAL WHEN CLICK ON BACKGROUND
+//CLOSE MODALS WHEN CLICK ON BACKGROUND
 background.addEventListener('click', function () {
     closeModal()
 })
 
-//CLOSE MODAL WHEN CLICK ON X BUTTON
+//CLOSE MODALS WHEN CLICK ON X BUTTON
 xBtn.forEach(button => {
 
     button.onclick = function () {
         closeModal()
     }
+
 })
 
-//CLOSE MODAL WHEN CLICK ON "não" BUTTON
-let deleteNaoBtn = document.querySelector('.delete-nao-btn')
-deleteNaoBtn.addEventListener('click', function () {
-    closeModal()
-})
-
-//CLOSE WHEN PRESS ESC
+//CLOSE MODALS WHEN PRESS ESC
 document.body.addEventListener('keydown', function (event) {
     let keyCode = event.keyCode
     if (keyCode == 27) {
         closeModal()
     }
 });
-
-
