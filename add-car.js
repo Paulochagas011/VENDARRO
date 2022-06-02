@@ -1,4 +1,4 @@
-// GETING ELEMENTS GLOBAL ELEMENTS 
+// GETING ELEMENTS GLOBAL ELEMENTS
 let body = document.querySelector('body')
 
 let tableBody = document.querySelector('.table-body')

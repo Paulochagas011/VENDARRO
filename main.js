@@ -8,52 +8,7 @@ let carsContainer = document.querySelector('.cars-container')
 let hide = document.querySelector('.hide')
 let background = document.querySelector('#background')
 
-//OBJECTS CARS LIST 
-
-// let objects = [
-//     {
-//         "id": 1,
-//         "name": "Ford Fusion 2014",
-//         "description": "Esse carro de 2014 levou muita belezinha para o prezunic comprar o arroz quando era barato",
-//         "file": "fusion.jpg",
-//         "price": 45000.00
-//     },
-//     {
-//         "id": 2,
-//         "name": "Chevrolet Tracker 2021",
-//         "description": "Apesar de ele ter tracker no nome, pode ficar tranquilo que não estamos te trackeando rsrs",
-//         "file": "GM-tracker_2021.jpg",
-//         "price": 90000.00
-//     },
-//     {
-//         "id": 3,
-//         "name": "Hyundai HB20 2020",
-//         "description": "Você quer 4 rodas? Ele tem! Você quer 4 portas? Talvez ele tenha! Você quer economia? Não tem :/",
-//         "file": "hb20.jpg",
-//         "price": 60000.00
-//     },
-//     {
-//         "id": 4,
-//         "name": "Jeep Renegade MOAB 2018",
-//         "description": "Vai ali na rua e espera 3 minutos. Só com isso, te convenci a comprar né? TODO MUNDO USA, simplesmente a havaiana automobilística.",
-//         "file": "renegade.jpg",
-//         "price": 145000.00
-//     },
-//     {
-//         "id": 5,
-//         "name": "Hyundai Tucson 2022",
-//         "description": "Bem mais bonita que as anteriores, carinha de kicks",
-//         "file": "tucson.jpg",
-//         "price": 230000.00
-//     },
-//     {
-//         "id": 6,
-//         "name": "Fusca Gamer",
-//         "description": "um fusquinha gamer raro do balacobaco, não pode ser comprado pois ninguém é digno de te-lo mas você pode aprecia-lo por um tempo :)",
-//         "file": "fusquinha-gamer.jpg",
-//         "price": "muito caro"
-//     }
-//  ]
+//GETING CARS FROM API
 
 fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
     .then(response => response.json())
@@ -63,7 +18,6 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
     })
 
     //FILTERING CARS
-    
     search.onkeyup = function carsFilter() {
         let searchValue = search.value.toLowerCase()
         
@@ -80,7 +34,6 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
     carsContainer.innerHTML = 'Buscando carros...'
     
     //LISTING CARS
-    
     function listCars(cars) {
     
         let foundCars = document.querySelector('.found-cars p')
@@ -92,7 +45,6 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
         }
     
         //CREATING CARDS
-    
         carsContainer.innerHTML = ``
     
         for (let i in cars) {
@@ -112,8 +64,8 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
             `
         }
 
-    //OPEN MODAL
 
+    //OPEN MODAL
     let cards = document.querySelectorAll('.card-container')
 
     cards.forEach(card => {
@@ -136,8 +88,7 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
 }
 
 
-// MODAL      
-
+// MODAL
 function printModal(carId) {
 
     let carSelected = objects.find(car => {
@@ -169,7 +120,7 @@ function printModal(carId) {
         closeModal()
     })
 
-    //CLOSE WHEN CLICK ON BACKGROUND AROUND THE MODAL
+    //CLOSE WHEN CLICK ON BACKGROUND
     background.addEventListener('click', function () {
         closeModal()
     })
@@ -183,6 +134,7 @@ function printModal(carId) {
     });
 }
 
+//FUNCTION TO CLOSE MODAL
 function closeModal() {
     modal.classList.remove('open')
     background.classList.remove('open')
