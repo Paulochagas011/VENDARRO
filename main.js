@@ -1,6 +1,4 @@
 // CAPTURING ELEMENTS AND DEFINING GLOBAL VARIABLES
-
-
 let body = document.querySelector('body')
 let modal = document.querySelector('.modal')
 let search = document.querySelector('.search')
@@ -9,7 +7,6 @@ let hide = document.querySelector('.hide')
 let background = document.querySelector('#background')
 
 //GETING CARS FROM API
-
 fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
     .then(response => response.json())
     .then(json => {

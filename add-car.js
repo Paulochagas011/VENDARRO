@@ -76,7 +76,10 @@ let form = document.getElementById('form')
 
 form.addEventListener('submit', function (event) {
     event.preventDefault()
+    checkInputs()
+})
 
+function createCar(){
     const formData = new FormData(form)
 
     fetch('https://imdev.azurewebsites.net/vendarro/create-carro.php', {
@@ -93,11 +96,13 @@ form.addEventListener('submit', function (event) {
         })
         .then(data => {
             getCars()
-            alert('Carro cadastrado')
+            if (data.length != data) {
+                alert('Carro cadrastado')
+            }
         })
         .catch(error => error)
     closeModal()
-})
+}
 
 //FUNCTION TO OPEN ADD CAR MODAL
 function openModal() {
@@ -234,6 +239,20 @@ let deleteNaoBtn = document.querySelector('.delete-nao-btn')
 deleteNaoBtn.addEventListener('click', function () {
     closeModal()
 })
+
+//CHECK IF ALL INPUTS ARE WITH SOME VALUE
+function checkInputs(){
+
+    let inputModelo = document.querySelector('#modelo-carro').value
+    let inputValue = document.querySelector('#valor-carro').value
+    let inputDescription = document.querySelector('#description-carro').value
+
+    if(inputModelo == '' || inputValue == '' || inputDescription == ''){
+        alert('Por favor preencha todos os campos')
+    } else{
+        createCar()
+    }
+}
 
 //CLOSE MODALS
 let background = document.querySelector('.background')
