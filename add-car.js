@@ -62,10 +62,15 @@ function listCars(cars) {
 
         button.onclick = function () {
             carId = this.getAttribute('data-delete')
-            deleteItem(carId)
             OpenDeleteModal()
+            // deleteItem(carId)
         }
     })
+}
+let deleteSimbtn = document.querySelector('.delete-sim-btn')
+deleteSimbtn.onclick = function(){
+    deleteItem(carId)
+    closeModal()
 }
 
 function editModal(id) {
@@ -135,9 +140,7 @@ function deleteItem(id){
         })
         .then(data => {
             getCars()
-            if(response.ok){
-                alert('Carro deletado')
-            } 
+            alert('Carro deletado')
         })
 }
 
@@ -196,6 +199,7 @@ function closeModal() {
     background.style.display = 'none'
     formDiv.style.display = 'none'
     formDivEdit.style.display = 'none'
+    deleteModal.style.display = 'none'
     body.style.overflow = 'auto'
 }
 closeModal()
@@ -211,6 +215,12 @@ xBtn.forEach(button => {
     }
 
 })
+//CLOSE MODAL WHEN CLICK ON "não" BUTTON
+let deleteNaoBtn = document.querySelector('.delete-nao-btn')
+deleteNaoBtn.addEventListener('click', function () {
+    closeModal()
+})
+
 //CLOSE WHEN PRESS ESC
 document.body.addEventListener('keydown', function (event) {
     let keyCode = event.keyCode
@@ -240,9 +250,7 @@ form.addEventListener('submit', function (event) {
         })
         .then(data => {
             getCars()
-            if (data.length != data) {
-                alert('Carro cadastrado')
-            }
+            alert('Carro cadastrado')
         })
         .catch(error => error)
     closeModal()
