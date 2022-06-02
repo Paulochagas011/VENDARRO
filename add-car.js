@@ -1,14 +1,15 @@
-
-// getin elements with querySelector
+// GETING ELEMENTS GLOBAL ELEMENTS 
 let body = document.querySelector('body')
+
 let tableBody = document.querySelector('.table-body')
 let tdId = document.querySelector('.td-id')
 let tdModelo = document.querySelector('.td-modelo')
 let tdValor = document.querySelector('.td-valor')
 let tdDescricao = document.querySelector('.td-descricao')
+
 let addCarBtn = document.querySelector('.add-car-btn-img')
 
-// geting cars from api
+// GETING CARS FROM API
 function getCars() {
     fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
         .then(response => response.json())
@@ -17,11 +18,12 @@ function getCars() {
             listCars(objects)
         })
 }
-
 getCars()
 
+// LISTING CARS ON SCREEN
 function listCars(cars) {
 
+    //SHOWING CARS FROM API
     tableBody.innerHTML = ``
 
     for (let i in cars) {
@@ -47,6 +49,7 @@ function listCars(cars) {
     </tr>`
     }
 
+    // EDIT BUTTON ON TABLE
     let buttonEdit = document.querySelectorAll('.td-edit')
     buttonEdit.forEach(button => {
 
@@ -57,40 +60,53 @@ function listCars(cars) {
 
     })
 
+    // DELETE BUTTON ON TABLE
     let buttonDelete = document.querySelectorAll('.td-delete')
     buttonDelete.forEach(button => {
 
         button.onclick = function () {
             carId = this.getAttribute('data-delete')
             OpenDeleteModal()
-            // deleteItem(carId)
         }
     })
 }
+
+// MAIN FORM, THE ADD CAR FORM
+let form = document.getElementById('form')
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const formData = new FormData(form)
+
+    fetch('https://imdev.azurewebsites.net/vendarro/create-carro.php', {
+        method: 'post',
+        body: formData,
+        strictErrors: true
+    })
+        .then(response => {
+            if (!response.ok) {
+                alert('Erro ao cadastrar: status ' + response.status)
+            } else {
+                return response
+            }
+        })
+        .then(data => {
+            getCars()
+            alert('Carro cadastrado')
+        })
+        .catch(error => error)
+    closeModal()
+})
+
+//  BUTTON "SIM" FROM DELETE MODAL
 let deleteSimbtn = document.querySelector('.delete-sim-btn')
 deleteSimbtn.onclick = function(){
     deleteItem(carId)
     closeModal()
 }
 
-function editModal(id) {
-    secondModal()
-
-    let carInfo = objects.find(car => car.id == id)
-
-    let carId = carInfo.id
-    let carModel = carInfo.modelo
-    let carValue = carInfo.valor
-    let carDescription = carInfo.descricao
-    let carFoto = carInfo.foto
-    
-    let inputModelo = document.querySelector('#modelo-carro-edit').value = carModel
-    let inputValue = document.querySelector('#valor-carro-edit').value = carValue
-    let inputDescription = document.querySelector('#description-carro-edit').value = carDescription
-    
-    document.querySelector('#hidden-id').value = id
-}
-
+// THE EDIT FORM
 let formEdit = document.getElementById('form-edit')
 
 formEdit.addEventListener('submit', function (event) {
@@ -120,6 +136,28 @@ formEdit.addEventListener('submit', function (event) {
     closeModal()
 })
 
+
+// EDIT MODAL
+function editModal(id) {
+    
+    openEditModal()
+
+    let carInfo = objects.find(car => car.id == id)
+
+    let carId = carInfo.id
+    let carModel = carInfo.modelo
+    let carValue = carInfo.valor
+    let carDescription = carInfo.descricao
+    let carFoto = carInfo.foto
+    
+    let inputModelo = document.querySelector('#modelo-carro-edit').value = carModel
+    let inputValue = document.querySelector('#valor-carro-edit').value = carValue
+    let inputDescription = document.querySelector('#description-carro-edit').value = carDescription
+    
+    document.querySelector('#hidden-id').value = id
+}
+
+// FUNCTION TO CALL ON DELETE BUTTON FROM TABLE
 function deleteItem(id){
     let carToBeDeleted = objects.find(car => car.id == id)
     
@@ -144,9 +182,14 @@ function deleteItem(id){
         })
 }
 
-//OPEN MODAL
+//OPEN ADD CAR MODAL
 let formDiv = document.querySelector('.form-div')
 
+addCarBtn.addEventListener('click', function () {
+    openModal()
+})
+
+//OPEN MODAL
 function openModal() {
 
     background.style.display = 'flex'
@@ -159,15 +202,11 @@ function openModal() {
     })
 }
 
-addCarBtn.addEventListener('click', function () {
-    openModal()
-})
 
 //OPEN EDIT MODAL
 let formDivEdit = document.querySelector('.form-div-edit')
 
-
-function secondModal (){
+function openEditModal (){
     background.style.display = 'flex'
     formDivEdit.style.display = 'flex'
     body.style.overflow = 'hidden'
@@ -191,6 +230,7 @@ function OpenDeleteModal(){
         behavior: 'smooth'
     })
 }
+
 //CLOSE MODAL
 let background = document.querySelector('.background')
 let xBtn = document.querySelectorAll('.x')
@@ -203,18 +243,20 @@ function closeModal() {
     body.style.overflow = 'auto'
 }
 closeModal()
+
 //CLOSE MODAL WHEN CLICK ON BACKGROUND
 background.addEventListener('click', function () {
     closeModal()
 })
+
 //CLOSE MODAL WHEN CLICK ON X BUTTON
 xBtn.forEach(button => {
 
     button.onclick = function () {
         closeModal()
     }
-
 })
+
 //CLOSE MODAL WHEN CLICK ON "não" BUTTON
 let deleteNaoBtn = document.querySelector('.delete-nao-btn')
 deleteNaoBtn.addEventListener('click', function () {
@@ -228,35 +270,5 @@ document.body.addEventListener('keydown', function (event) {
         closeModal()
     }
 });
-
-let form = document.getElementById('form')
-
-form.addEventListener('submit', function (event) {
-    event.preventDefault()
-
-    const formData = new FormData(form)
-
-    fetch('https://imdev.azurewebsites.net/vendarro/create-carro.php', {
-        method: 'post',
-        body: formData,
-        strictErrors: true
-    })
-        .then(response => {
-            if (!response.ok) {
-                alert('Erro ao cadastrar: status ' + response.status)
-            } else {
-                return response
-            }
-        })
-        .then(data => {
-            getCars()
-            alert('Carro cadastrado')
-        })
-        .catch(error => error)
-    closeModal()
-})
-
-//DELETE CARS
-
 
 
