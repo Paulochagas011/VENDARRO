@@ -56,7 +56,7 @@ fetch('https://imdev.azurewebsites.net/vendarro/get-carros.php')
             <div class="card-container" data-car=${id}>
             <img src="https://imdev.azurewebsites.net/vendarro/img//${foto}" alt="${modelo}">
             <p class="carName">${modelo}</p>
-            <p class="carPrice">R$${valor},00</p>
+            <p class="carPrice">R$${valor}</p>
             </div>
             `
         }

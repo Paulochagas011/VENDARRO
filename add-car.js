@@ -75,7 +75,9 @@ function listCars(cars) {
 let form = document.getElementById('form')
 
 form.addEventListener('submit', function (event) {
+    
     event.preventDefault()
+
     checkInputs()
 })
 
@@ -128,8 +130,12 @@ addCarBtn.addEventListener('click', function () {
 let formEdit = document.getElementById('form-edit')
 
 formEdit.addEventListener('submit', function (event) {
-    event.preventDefault()
 
+    event.preventDefault()
+    checkInputsOnEditModal()
+})
+
+function editCar() {
     const formData = new FormData(formEdit)
 
     fetch('https://imdev.azurewebsites.net/vendarro/update-carro.php', {
@@ -151,8 +157,8 @@ formEdit.addEventListener('submit', function (event) {
             }
         })
         .catch(error => error)
-    closeModal()
-})
+        closeModal()
+}
 
 //OPEN EDIT MODAL
 let formDivEdit = document.querySelector('.form-div-edit')
@@ -251,6 +257,20 @@ function checkInputs(){
         alert('Por favor preencha todos os campos')
     } else{
         createCar()
+    }
+
+}
+
+function checkInputsOnEditModal(){
+    
+    let inputModeloEdit = document.querySelector('#modelo-carro-edit').value
+    let inputValueEdit = document.querySelector('#valor-carro-edit').value
+    let inputDescriptionEdit = document.querySelector('#description-carro-edit').value
+
+    if(inputModeloEdit == '' || inputValueEdit == '' || inputDescriptionEdit == ''){
+        alert('Por favor preencha todos os campos')
+    } else {
+        editCar()
     }
 }
 
